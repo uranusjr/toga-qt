@@ -7,7 +7,7 @@ from .base import SizeHintMixin
 
 
 class QContainer(qt.QWidget):
-    """QWidget subclass for cassoway container _impl compatibility.
+    """QWidget subclass for cassowary container _impl compatibility.
     """
     def __init__(self, layout_manager):
         super(QContainer, self).__init__()
