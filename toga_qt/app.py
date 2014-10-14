@@ -42,6 +42,7 @@ class App(object):
         submenu = menu_bar.addMenu('Help')
         submenu.addAction('Help')
 
+        self.main_window._impl.setWindowIcon(self.icon._impl)
         self.main_window._impl.setMenuBar(menu_bar)
 
         self.startup()
