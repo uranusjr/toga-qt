@@ -69,13 +69,13 @@ class Window(object):
                 if toolbar_item == SEPARATOR:
                     item_impl = impl.addSeparator()
                 elif toolbar_item == SPACER:
-                    item_impl = impl.addAction(qt.QWidget())
+                    item_impl = impl.addWidget(qt.QWidget())
                 elif toolbar_item == EXPANDING_SPACER:
                     item_impl = qt.QWidget()
-                    item_impl.setHorizontalSizePolicy(
-                        qt.QSizePolicy.Expending, qt.QSizePolicy.Preferred
+                    item_impl.setSizePolicy(
+                        qt.QSizePolicy.Expanding, qt.QSizePolicy.Preferred
                     )
-                    impl.addAction(item_impl)
+                    impl.addWidget(item_impl)
                 else:
                     item_impl = impl.addAction(
                         toolbar_item.icon._impl, toolbar_item.label
