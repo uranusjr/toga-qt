@@ -1,6 +1,7 @@
 from __future__ import print_function, absolute_import, division
 
 from ..libs import qt
+from ..libs.constants import get_scrollbar_policy as get_policy
 from .base import Widget
 
 
@@ -16,8 +17,8 @@ class ScrollContainer(Widget):
 
     def startup(self):
         self._impl = qt.QScrollArea()
-        self._impl.setHorizontalScrollBarPolicy(self._policy(self.horizontal))
-        self._impl.setVerticalScrollBarPolicy(self._policy(self.vertical))
+        self._impl.setHorizontalScrollBarPolicy(get_policy(self.horizontal))
+        self._impl.setVerticalScrollBarPolicy(get_policy(self.vertical))
 
     @property
     def content(self):
@@ -37,8 +38,3 @@ class ScrollContainer(Widget):
     def _set_window(self, window):
         if self._content:
             self._content.window = self.window
-
-    def _policy(self, value):
-        if value:
-            return qt.Qt.ScrollBarAsNeeded
-        return qt.Qt.ScrollBarAlwaysOff
