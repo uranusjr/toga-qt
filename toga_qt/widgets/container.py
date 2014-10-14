@@ -3,6 +3,7 @@ from __future__ import print_function, absolute_import, division
 from toga_cassowary.widget import Container as CassowaryContainer
 
 from ..libs import qt
+from .base import SizeHintMixin
 
 
 class QContainer(qt.QWidget):
@@ -58,7 +59,7 @@ class QContainer(qt.QWidget):
                     widget._impl.setGeometry(x_pos, y_pos, width, height)
 
 
-class Container(CassowaryContainer):
+class Container(SizeHintMixin, CassowaryContainer):
     """Container object.
 
     Corresponds to a QWidget. For consistency, we use Cassowary to layout the
@@ -66,13 +67,3 @@ class Container(CassowaryContainer):
     """
     def _create_container(self):
         return QContainer(self._layout_manager)
-
-    @property
-    def _width_hint(self):
-        return (self._impl.minimumSizeHint().width(),
-                self._impl.sizeHint().width())
-
-    @property
-    def _height_hint(self):
-        return (self._impl.minimumSizeHint().height(),
-                self._impl.sizeHint().height())
