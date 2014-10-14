@@ -20,15 +20,10 @@ class Icon(object):
             )
         else:
             filename = self.path
-        self._impl = qt.QIcon(filename)
+        self._impl_lazy = lambda: qt.QIcon(filename)
 
     @staticmethod
     def load(path_or_icon, default=None):
-        while callable(default):
-            default = default()
-        while callable(path_or_icon):
-            path_or_icon = path_or_icon()
-
         if path_or_icon:
             if isinstance(path_or_icon, Icon):
                 obj = path_or_icon
@@ -40,7 +35,13 @@ class Icon(object):
             raise ValueError('Need to specify icon path or default icon')
         return obj
 
+    @property
+    def _impl(self):
+        if callable(self._impl_lazy):
+            self._impl_lazy = self._impl_lazy()
+        return self._impl_lazy
+
 
 # Qt can't load pixmaps before the application is created, so we need to delay
 # initialization.
-TIBERIUS_ICON = lambda: Icon('tiberius-32.png', system=True)
+TIBERIUS_ICON = Icon('tiberius-32.png', system=True)
